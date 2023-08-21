@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Endpoint Table</title>
+    <title>Routes Endpoint Table</title>
     <style>
         table {
             border-collapse: collapse;
@@ -42,14 +42,86 @@
                 <td>Retrieve a list of users.</td>
             </tr>
             <tr>
+                <td>GET</td>
+                <td>/user/id</td>
+                <td>Retrieve a single user.</td>
+            </tr>
+            <tr>
                 <td>POST</td>
-                <td>/users</td>
+                <td>/register</td>
                 <td>Create a new user.</td>
             </tr>
             <tr>
-                <td>PUT</td>
+                <td>POST</td>
+                <td>/login</td>
+                <td>Login</td>
+            </tr>
+            <tr>
+                <td>PATCH</td>
                 <td>/users/:id</td>
                 <td>Update user information.</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/users</td>
+                <td>Deletes all users</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/user/id</td>
+                <td>Deletes a single user</td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <h2>PRODUCTS ROUTE</h2>
+            <tr>
+                <th>Methods</th>
+                <th>Path</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/products</td>
+                <td>Get all our products</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/product/id</td>
+                <td>Retrieve a single product</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/product/category</td>
+                <td>Get product by specified category(Watches,Rings,Necklaces)</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/product/gender</td>
+                <td>Get product by specified gender(female,male)</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/addproduct</td>
+                <td>Create a new product.</td>
+            </tr>
+            <tr>
+                <td>PATCH</td>
+                <td>/product/:id</td>
+                <td>Update product information.</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/product/id</td>
+                <td>Deletes a single product</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/products</td>
+                <td>Deletes all products</td>
             </tr>
         </tbody>
     </table>
