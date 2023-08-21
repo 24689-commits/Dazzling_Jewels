@@ -3,8 +3,8 @@ const db =require("../config")
 class Products{
     fetchProducts(req,res){
         const query =`
-        SELECT prodID, prodName, amount, category, image,gender
-        FROM Products;
+        SELECT prodID, prodName, amount, category, gender,image
+        FROM products;
         `
         db.query(query,(err,results)=>{
             if (err) throw err
@@ -16,8 +16,8 @@ class Products{
     }
     fetchProduct(req,res){
         const query =`
-        SELECT prodID, prodName, amount, category, image,gender
-        FROM Products
+        SELECT prodID, prodName, amount, category,gender, image
+        FROM products
         WHERE prodID = ${req.params.id};
         `
         db.query(query, (err, result) => {
@@ -30,7 +30,7 @@ class Products{
     }
     addProduct(req, res) {
         const query = `
-        INSERT INTO Products
+        INSERT INTO products
         SET ?;
         `;
 
@@ -45,7 +45,7 @@ class Products{
 
     updateProduct(req, res) {
         const query = `
-        UPDATE Products
+        UPDATE products
         SET ?
         WHERE prodID = ?;
         `;
@@ -61,7 +61,7 @@ class Products{
 
     deleteProduct(req, res) {
         const query = `
-        DELETE FROM Products
+        DELETE FROM products
         WHERE prodID = ${req.params.id};
         `;
 

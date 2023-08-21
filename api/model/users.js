@@ -5,7 +5,7 @@ class Users{
     fetchUsers(req,res){
         const query =`
         SELECT userID, firstName, lastName, gender, userDOB, emailAdd, userPassword, profileUrl
-        FROM Users;
+        FROM users;
         `
         db.query(query,(err,results)=>{
             if (err) res.json({err})
@@ -18,7 +18,7 @@ class Users{
     fetchUser(req,res){
         const query = `
         SELECT userID, firstName, lastName, gender, userDOB, emailAdd, userPassword, profileUrl
-        FROM Users
+        FROM users
         WHERE userID =${req.params.id};
         `
         db.query(query,(err,result)=>{
@@ -34,7 +34,7 @@ class Users{
         
         const query = `
         SELECT userID, firstName, lastName, gender, userDOB, emailAdd, userPassword, profileUrl
-        FROM Users
+        FROM users
         WHERE emailAdd = '${emailAdd}';
         `
         db.query(query, async (err, result)=>{
@@ -83,7 +83,7 @@ async register(req,res){
     }
 
     const query =`
-    INSERT INTO Users
+    INSERT INTO users
     SET ?;
     `
     db.query(query,[data], (err)=>{
@@ -103,14 +103,14 @@ updateUser(req,res){
         data.userPassword = hashSync(data.userPassword,15)
     }
     const query =`
-    UPDATE Users
+    UPDATE users
     SET ?
     WHERE userID=?
     `
     db.query(query, [data, req.params.id],(err)=>{
        if (err) throw err
        res.json({
-        status: statusCode,
+        status: res.statusCode,
         msg: "The user record was updated."
 
        })
@@ -119,7 +119,7 @@ updateUser(req,res){
 }
 deleteUser(req,res){
     const query = `
-    DELETE FROM Users
+    DELETE FROM users
     WHERE userID =${req.params.id}
     `
     db.query(query,(err)=>{
