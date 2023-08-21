@@ -14,6 +14,54 @@ class Products{
             })
         })
     }
+    fetchProductsByCategory(req, res) {
+        const category = req.params.category;
+
+        if (!category) {
+            return res.status(400).json({
+                status: 400,
+                error: "Category parameter is required."
+            });
+        }
+
+        const query = `
+        SELECT prodID, prodName, amount, category, gender, image
+        FROM products
+        WHERE category = ?;
+        `;
+
+        db.query(query, [category], (err, result) => {
+            if (err) throw err;
+            res.json({
+                status: res.statusCode,
+                result
+            });
+        });
+    }
+       fetchProductsByGender(req, res) {
+        const gender = req.params.gender;
+
+        if (!gender) {
+            return res.status(400).json({
+                status: 400,
+                error: "Gender parameter is required."
+            });
+        }
+
+        const query = `
+        SELECT prodID, prodName, amount, category, gender, image
+        FROM products
+        WHERE gender = ?;
+        `;
+
+        db.query(query, [gender], (err, result) => {
+            if (err) throw err;
+            res.json({
+                status: res.statusCode,
+                result
+            });
+        });
+    }
     fetchProduct(req,res){
         const query =`
         SELECT prodID, prodName, amount, category,gender, image

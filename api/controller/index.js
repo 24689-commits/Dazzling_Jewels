@@ -40,11 +40,11 @@ routes.get('/products',(req,res)=>{
 routes.get('/product/:id',(req,res)=>{
     products.fetchProduct(req,res)
 })
-routes.get('/product/:category',(req,res)=>{
-    products.fetchProduct(req,res)
+routes.get('/products/:category',(req,res)=>{
+    products.fetchProductsByCategory(req,res)
 })
-routes.get('/product/:gender',(req,res)=>{
-    products.fetchProduct(req,res)
+routes.get('/products/:gender',(req,res)=>{
+    products.fetchProductsByGender(req,res)
 })
 routes.post('/addproduct', bodyParser.json(),
 (req,res)=>{
