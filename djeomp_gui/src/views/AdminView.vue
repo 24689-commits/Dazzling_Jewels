@@ -23,6 +23,7 @@
             <td>
               <button @click="editProduct(Product.prodID)" class="btn btn-primary">Edit</button>
               <button @click="deleteProduct(Product.prodID)" class="btn btn-secondary">Delete</button>
+
             </td>
           </tr>
         </tbody>
@@ -70,6 +71,8 @@
   
   <script>
 import { mapState, mapActions } from 'vuex';
+import axios from 'axios';
+const cUrl = "https://dj-eomp.onrender.com/";
 
 export default {
   computed: {
@@ -106,16 +109,15 @@ export default {
       };
     },
     async addProduct() {
-      try {
-        await axios.post(`${cUrl}addproduct`, this.Product);
-        this.fetchProduct(); 
-        this.closeModal();
-      } catch (error) {
-        console.error('Error adding product:', error);
-      }
-    },
-    
-  },
+  try {
+    console.log('Adding product:', this.Product);
+    await axios.post(`${cUrl}addproduct`, this.Product);
+    await this.$store.dispatch('fetchProducts');
+    this.closeModal();
+  } catch (error) {
+    console.error('Error adding product:', error);
+  }
+},
   mounted() {
     this.$store.dispatch('fetchProducts');
   },
