@@ -112,16 +112,20 @@ export default {
   try {
     console.log('Adding product:', this.Product);
     await axios.post(`${cUrl}addproduct`, this.Product);
+    console.log('Product added successfully.');
+    // Assuming you have a Vuex action called 'fetchProducts' to refresh the product list
     await this.$store.dispatch('fetchProducts');
     this.closeModal();
   } catch (error) {
     console.error('Error adding product:', error);
   }
 },
+    
+  },
   mounted() {
     this.$store.dispatch('fetchProducts');
   },
-};
+}; 
 </script>
   
   <style scoped>
