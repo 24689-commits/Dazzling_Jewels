@@ -22,6 +22,7 @@
               <li @click="applyCategoryFilter('Necklaces')">Necklaces</li>
               <li @click="applyGenderFilter('male')">Male</li>
               <li @click="applyGenderFilter('female')">Female</li>
+              <GenderComp/>
             </ul>
           </div>
         </div>
@@ -51,10 +52,12 @@
 
 <script>
 import SpinnerCompVue from '../components/SpinnerComp.vue';
+import GenderComp from '../components/GenderComp.vue';
 
 export default {
   components: {
     SpinnerCompVue,
+    GenderComp, 
   },
   computed: {
     Products() {
@@ -107,6 +110,7 @@ export default {
     applyGenderFilter(gender) {
       this.selectedGender = gender;
     },
+    
     clearFilters() {
       this.selectedCategory = '';
       this.selectedGender = '';
