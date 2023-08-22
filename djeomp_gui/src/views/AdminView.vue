@@ -1,153 +1,151 @@
 <template>
-    <div class="container">
-      <button @click="showAddProductModal" class="btn btn-primary">Add Item</button>
-      <button @click="sortTableById" class="btn btn-secondary">Sort by ID</button>
-      <table id="tblAdmin" class="table">
-        <thead>
-          <tr>
-            <th>productId</th>
-            <th>prodName</th>
-            <th>Image</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="Product in Products" :key="Product.prodID">
-            <td>{{ Product.prodID }}</td>
-            <td>{{ Product.prodName }}</td>
-            <td><img :src="Product.image" alt="Product Image"></td>
-            <td>{{ Product.category }}</td>
-            <td>{{ Product.amount }}</td>
-            <td>
-              <button @click="editProduct(Product.prodID)" class="btn btn-primary">Edit</button>
-              <button @click="deleteProduct(Product.prodID)" class="btn btn-secondary">Delete</button>
+  <div>
+    <h2>Admin Component</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Category</th>
+          <th>Gender</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="product in products" :key="product.prodID">
+          <td>{{ product.prodID }}</td>
+          <td>{{ product.prodName }}</td>
+          <td>{{ product.amount }}</td>
+          <td>{{ product.category }}</td>
+          <td>{{ product.gender }}</td>
+          <td>  <img :src="product.image" alt="Product Image"></td>
+          <td>
+            <button @click="deleteProduct(product.prodID)">Delete</button>
+            <button @click="editProduct(product)">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- Modal -->
-      <div id="modal" class="modal" v-if="isModalVisible">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h2 class="modal-title">Add Item</h2>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="prodName" class="form-label">Name:</label>
-                  <input type="text" class="form-control" v-model="Product.prodName" id="prodName">
-                </div>
-                <div class="mb-3">
-                  <label for="image" class="form-label">Image:</label>
-                  <input type="text" class="form-control" v-model="Product.image" id="image">
-                </div>
-                <div class="mb-3">
-                  <label for="category" class="form-label">Category:</label>
-                  <input type="text" class="form-control" v-model="Product.category" id="category">
-                </div>
-                <div class="mb-3">
-                  <label for="category" class="form-label">Gender:</label>
-                  <input type="text" class="form-control" v-model="Product.gender" id="gender">
-                </div>
-                <div class="mb-3">
-                  <label for="amount" class="form-label">Amount:</label>
-                  <input type="text" class="form-control" v-model="Product.amount" id="amount">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" @click="addProduct">Add</button>
-              <button type="button" class="btn btn-secondary" @click="closeModal">Cancel</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div v-if="showAddModal">
+      <h3>Add Product</h3>
+      <form @submit.prevent="addProduct">
+        <label for="name">Name:</label>
+        <input type="text" id="name" v-model="newProduct.prodName" required>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" v-model="newProduct.amount" required>
+        <label for="category">Category:</label>
+        <input type="text" id="category" v-model="newProduct.category" required>
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" v-model="newProduct.gender" required>
+        <label for="image">Image URL:</label>
+        <input type="text" id="image" v-model="newProduct.image" required>
+        <button type="submit">Add</button>
+        <button @click="showAddModal = false">Cancel</button>
+      </form>
     </div>
-  </template>
-  
-  <script>
-import { mapState, mapActions } from 'vuex';
-import axios from 'axios';
-const cUrl = "https://dj-eomp.onrender.com/";
 
+    <div v-if="showEditModal">
+      <h3>Edit Product</h3>
+      <form @submit.prevent="updateProduct">
+        <label for="editName">Name:</label>
+        <input type="text" id="editName" v-model="editProductData.prodName" required>
+        <label for="editAmount">Amount:</label>
+        <input type="number" id="editAmount" v-model="editProductData.amount" required>
+        <label for="editCategory">Category:</label>
+        <input type="text" id="editCategory" v-model="editProductData.category" required>
+        <label for="editGender">Gender:</label>
+        <input type="text" id="editGender" v-model="editProductData.gender" required>
+        <label for="editImage">Image URL:</label>
+        <input type="text" id="editImage" v-model="editProductData.image" required>
+        <button type="submit">Update</button>
+        <button @click="showEditModal = false">Cancel</button>
+      </form>
+    </div>
+
+    <button @click="showAddModal = true">Add Product</button>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
 export default {
-  computed: {
-    ...mapState(['Products']),
-  },
   data() {
     return {
-      isModalVisible: false,
-      Product: {
+      products: [],
+      showAddModal: false,
+      showEditModal: false,
+      newProduct: {
         prodName: '',
-        image: '',
-        category: '',
-        gender:'',
         amount: 0,
+        category: '',
+        gender: '',
+        image: '',
+      },
+      editProductData: {
+        prodID: null,
+        prodName: '',
+        amount: 0,
+        category: '',
+        gender: '',
+        image: '',
       },
     };
   },
   methods: {
-    ...mapActions(['fetchProduct']),
-    showAddProductModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
-      this.resetNewProduct();
-    },
-    resetNewProduct() {
-      this.Product = {
-        prodName: '',
-        image: '',
-        category: '',
-        gender:'',
-        amount: 0,
-      };
-    },
-    async addProduct() {
+    async fetchProducts() {
   try {
-    console.log('Adding product:', this.Product);
-    await axios.post(`${cUrl}addproduct`, this.Product);
-    console.log('Product added successfully.');
-    // Assuming you have a Vuex action called 'fetchProducts' to refresh the product list
-    await this.$store.dispatch('fetchProducts');
-    this.closeModal();
-  } catch (error) {
-    console.error('Error adding product:', error);
+    const response = await axios.get(`https://dj-eomp.onrender.com/products`);
+    const data = response.data.results; // Access the data from the Proxy object
+    console.log(data); // Log the data to ensure it's what you expect
+    this.products = data;
+  } catch (err) {
+    alert(err);
   }
-},
-    
+}
+,
+    async addProduct() {
+      try {
+        await axios.post(`https://dj-eomp.onrender.com/addproduct`, this.newProduct);
+        this.showAddModal = false;
+        this.newProduct = { prodName: '', amount: 0, category: '', gender: '', image: '' };
+        await this.fetchProducts();
+      } catch (err) {
+        alert(err);
+      }
+    },
+    async updateProduct() {
+      try {
+        await axios.put(`https://dj-eomp.onrender.com/product/${this.editProductData.prodID}`, this.editProductData);
+        this.showEditModal = false;
+        this.editProductData = { prodID: null, prodName: '', amount: 0, category: '', gender: '', image: '' };
+        await this.fetchProducts();
+      } catch (err) {
+        alert(err);
+      }
+    },
+    async deleteProduct(id) {
+      try {
+        await axios.delete(`https://dj-eomp.onrender.com/product/${id}`);
+        await this.fetchProducts();
+      } catch (err) {
+        alert(err);
+      }
+    },
+    editProduct(product) {
+      this.editProductData.prodID = product.prodID;
+      this.editProductData.prodName = product.prodName;
+      this.editProductData.amount = product.amount;
+      this.editProductData.category = product.category;
+      this.editProductData.gender = product.gender;
+      this.editProductData.image = product.image;
+      this.showEditModal = true;
+    },
   },
-  mounted() {
-    this.$store.dispatch('fetchProducts');
+  created() {
+    this.fetchProducts();
   },
-}; 
+};
 </script>
-  
-  <style scoped>
-  .modal {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-  }
-  .modal-dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 1rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  </style>
-  
