@@ -28,10 +28,10 @@
         </div>
         </div>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-11">
         <h2 class="display-2">Products</h2>
-        <div class="row justify-content-center gap-3" v-if="filteredProducts">
-         <div v-for="Product in filteredProducts" class="col-2" :key="Product.prodID">
+        <div class="row justify-content-center " v-if="filteredProducts">
+         <div v-for="Product in filteredProducts" class="col-3" :key="Product.prodID">
             <div class="col">
               <img :src="Product.image" class="card-img-top img fluid" :alt="Product.prodName" />
               <div class="card-body">
@@ -136,7 +136,7 @@ export default {
   position: fixed; 
   top: 5rem;
   left: 3rem; 
-  bottom: 0rem;
+  bottom: 0;
   
 }
 
@@ -186,6 +186,6 @@ li:hover{
   padding: 10px;
 }
 .row{
-  margin-left: 8rem;
+  margin-left: 7rem;
 }
 </style>

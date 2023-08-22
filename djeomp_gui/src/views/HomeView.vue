@@ -15,10 +15,10 @@
    
     <nav class="navbar">
       <form class="container-fluid justify-content-start">
-        <a class="btn me-5" type="button" href="./ProductsView.vue">ShopNow</a>
-        <a class="btn btn-sm me-5" type="button" href="">Watches</a>
-        <a class="btn btn-sm me-5" type="button" href="">Rings</a>
-        <a class="btn btn-sm me-5" type="button" href="">Necklaces</a>
+        <a class="btn me-5" type="button" href="/products">ShopNow</a>
+        <a class="btn btn-sm me-5" type="button" href="/products">Watches</a>
+        <a class="btn btn-sm me-5" type="button" href="/products">Rings</a>
+        <a class="btn btn-sm me-5" type="button" href="/products">Necklaces</a>
       </form>
     </nav>
     <div class="container text-center">
@@ -28,7 +28,7 @@
             <div class="texts">
               <h3>Where opulence meets essence</h3>
               <p>Elevating Elegance, Enriching Essence.</p>
-              <button class="btn me-5" type="button" href="./ProductsView.vue">ShopNow</button>
+              <a class="btn me-5" href="/products">Shop Now</a>
             </div>
           </div>
         </div>
