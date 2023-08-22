@@ -54,6 +54,18 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
+    // new fetch ==========================
+    async fetchProductsByCategory(context, category) {
+      try {
+        const { data } = await axios.get(`${cUrl}Products`);
+        const filteredProducts = data.results.filter(product => product.category === category);
+        context.commit("setProducts", filteredProducts);
+      } catch (e) {
+        context.commit("setMsg", "An error occurred");
+      }
+    },
+    
+    //============================================
       async fetchProduct(context) {
       try {
         const { data } = await axios.get(`${cUrl}Product/`+ id);
