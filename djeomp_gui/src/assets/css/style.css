@@ -10,26 +10,7 @@
     margin-inline: .4rem;
     
 }
-.navbar{
-    /* background-color: blue; */
-}
-
-/* #app{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto minmax(100vh, 1fr) auto;
-
-}
-#app > *{
-    grid-column: 1/-1;
-} */
- /* contact starts */
-
-
-
-  /* contact ends */
-
-  .footer {
+ .footer {
     background-color: rgb(178, 173, 173);
     text-align: center;
     margin-top: 5rem;
@@ -63,10 +44,15 @@
     transition: color 0.3s;
   }
   
-  /* .navbar-nav .nav-item a:hover {
-    color: rgb(91, 68, 92); 
+  #contact{
+ align-items: center;
+ justify-items:center;
+background-image: url("https://i.postimg.cc/J0TkQKTQ/c-HJpdm-F0-ZS9sci9pb-WFn-ZXMvd2-Vic2l0-ZS8y-MDIy-LTA2-L3-Yx-MDE2-LWEt-MDJk-LXguan-Bn.jpg");
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+height:100vh;
   }
-  .navbar-nav .nav-item .router-link-active{
-    color:#8a8a8a;
-  } */
+
+  
   
