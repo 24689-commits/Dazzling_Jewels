@@ -54,14 +54,14 @@ export default createStore({
         context.commit("setMsg", "An error occurred");
       }
     },
-    async addProduct(context, Product) {
+      async fetchProduct(context) {
       try {
-        await axios.post(`${cUrl}addProduct`, Product);
-        context.dispatch('fetchProduct'); 
-      } catch (error) {
-        console.error('Error adding product:', error);
+        const { data } = await axios.get(`${cUrl}Product/`+ id);
+        context.commit("setProducts", data.result);
+      } catch (e) {
+        context.commit("setMsg", "An error occurred");
       }
-    }
+    },
   },
   modules: {}
 });
