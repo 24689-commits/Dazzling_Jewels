@@ -35,10 +35,10 @@
       </div>
     </div>
     <!-- featured products -->
-    <div class="container mt-4">
-      <h2>Featured Products</h2>
+    <div class="container mt-4 md-4">
+      <h2 id="featured">Featured Products</h2>
       <div class="row justify-content-center " v-if="Products">
-        <div v-for="product in Products" :key="product.prodID" class="col-lg-2 col-md-4 col-sm-6 mb-4">
+        <div v-for="product in Products" :key="product.prodID" class="col-lg-3 col-md-4 col-sm-6 mb-4">
           <div class="card d-flex flex-column h-100">
             <img :src="product.image" class="card-img-top" alt="Product Image">
             <div class="card-body">
@@ -75,6 +75,9 @@ export default {
 </script>
 
 <style>
+#featured{
+  padding: 3rem 0;
+}
 .text-overlay {
   background-image: url("https://i.postimg.cc/rsCx4gHY/20230728-American-Swiss-Spotlight-Diamond-Showcase-Update2-Desktop-896e055d61.jpg");
   background-size: cover; 
@@ -103,8 +106,8 @@ export default {
 
 
 img{
-width:100px;
-height:120px;
+width:500px;
+height:50px;
 }
 col{
   margin:0px!important;
@@ -113,5 +116,14 @@ col{
 p{
   font-weight: bold;
   font-size: 5 0px;
+}
+.card-img-top {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.card{
+  width:250px;
+  height: 230px;
 }
 </style>
