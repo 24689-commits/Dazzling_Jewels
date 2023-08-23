@@ -31,10 +31,14 @@
       <div class="col-md-11">
         <h2 class="display-2">Products</h2>
         <div class="row justify-content-center " v-if="filteredProducts">
+          <div v-if="displayMessage">
+            <p>{{ displayMessage }}</p>
+          </div>
          <div v-for="Product in filteredProducts" class="col-3" :key="Product.prodID">
             <div class="col">
               <img :src="Product.image" class="card-img-top img fluid" :alt="Product.prodName" />
               <div class="card-body">
+
                 <h6 class="card-title">{{ Product.prodName }}</h6>
                 <h6 class="card-text">Category: {{ Product.category }}</h6>
                 <h6 class="card-title"> R{{ Product.amount }}</h6>
@@ -56,7 +60,6 @@
                           <p class="card-text">Category: {{ Product.category }}</p>
                           <p class="card-title">R{{ Product.amount }}</p>
                           <p><u>Description : </u> </p>
-    
                           <p class="card-text">{{ Product.about }}</p>
                         </div>
                       </div>
@@ -116,22 +119,23 @@ export default {
 
       return filtered;
     },
+    displayMessage() {
+      if (this.searchQuery && this.filteredProducts.length === 0) {
+        return "Sorry, we couldn't find any products matching your search. Please try a different search term.";
+      } else if (this.filteredProducts.length === 0) {
+        return "We currently do not have this in stock.";
+      } else {
+        return null;
+      }
+    }
   },
+  
   data() {
     return {
       searchQuery: '',
       selectedCategory: '',
       selectedGender: '',
       sortingOption: 'default',
-      product:{
-        showPopover:false,
-        image: '', 
-        prodName: '',
-        category: '',
-        amount: '',
-        about: '',
-      }
-     
     };
   },
   methods: {
@@ -152,13 +156,6 @@ export default {
     applySorting() {
 
     },
-   showPopover(product) {
-      product.showPopover = true;
-    },
-    closeModal(product) {
-  product.showPopover = false;
-},
-
   },
   mounted() {
     this.$store.dispatch('fetchProducts');
@@ -192,6 +189,7 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 .filters {
   margin-top: 20px;
 }
@@ -228,57 +226,4 @@ li:hover{
 .row{
   margin-left: 7rem;
 }
-.modal-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000; 
-}
-
-.modal-dialog {
-  position: absolute; 
-  top: 30%; 
-  left:30%; 
-  height:8
-  00px;
-  width:800px;
-  z-index: 10001
-}
-.view-button{
-  border: 1px solid black;
-  border-radius: 10px;
-  width:100px;
-  height:40px;
-  cursor: pointer;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: 1px solid black;
-  border-radius: 10px;
-  width:100px;
-  height:50px;
-  cursor: pointer;
-  z-index: 10002;
-  background-color:#d2d2d2
-}
-.card-body {
-  padding: 20px;
-  text-align: center; 
-}
-
-.card-title {
-  font-size: 24px; /* Increase font size for the title */
-}
-
-.card-text {
-  font-size: 18px; /* Increase font size for text content */
-}</style>
+</style>
