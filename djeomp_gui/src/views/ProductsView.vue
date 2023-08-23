@@ -55,7 +55,7 @@
                           <h3 class="card-title">{{ Product.prodName }}</h3>
                           <p class="card-text">Category: {{ Product.category }}</p>
                           <p class="card-title">R{{ Product.amount }}</p>
-                          <p><u>Description : </u> sana</p>
+                          <p><u>Description : </u> </p>
     
                           <p class="card-text">{{ Product.about }}</p>
                         </div>
