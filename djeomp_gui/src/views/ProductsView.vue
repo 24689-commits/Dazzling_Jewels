@@ -38,9 +38,34 @@
             <div class="col">
               <img :src="Product.image" class="card-img-top img fluid" :alt="Product.prodName" />
               <div class="card-body">
-                <h5 class="card-title">{{ Product.prodName }}</h5>
-                <p class="card-text">Category: {{ Product.category }}</p>
-                <h5 class="card-title"> R{{ Product.amount }}</h5>
+
+                <h6 class="card-title">{{ Product.prodName }}</h6>
+                <h6 class="card-text">Category: {{ Product.category }}</h6>
+                <h6 class="card-title"> R{{ Product.amount }}</h6>
+                <button class="view-button" @click="showPopover(Product)" >View More</button>
+              </div>
+            </div>
+            <div v-if="Product.showPopover" class="modal-background">
+              <button class="close-button" @click="closeModal(Product)">Close</button>
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="card mb-3 " style="max-width: 700px; margin: 0 auto">
+                    <div class="row g-0 justify-content-center align-items-center">
+                      <div class="col-md-4 text-center">
+                        <img :src="Product.image" class="img-fluid" style="width:100rem!important; height:15rem;" :alt="Product.prodName" />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h3 class="card-title">{{ Product.prodName }}</h3>
+                          <p class="card-text">Category: {{ Product.category }}</p>
+                          <p class="card-title">R{{ Product.amount }}</p>
+                          <p><u>Description : </u> </p>
+                          <p class="card-text">{{ Product.about }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
