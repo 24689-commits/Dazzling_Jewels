@@ -37,7 +37,7 @@
     <!-- featured products -->
     <div class="container mt-4">
       <h2>Featured Products</h2>
-      <div class="row">
+      <div class="row justify-content-center " v-if="Products">
         <div v-for="product in Products" :key="product.prodID" class="col-lg-2 col-md-4 col-sm-6 mb-4">
           <div class="card d-flex flex-column h-100">
             <img :src="product.image" class="card-img-top" alt="Product Image">
@@ -47,18 +47,25 @@
           </div>
         </div>
       </div>
+      <div v-else class="row justify-content-center">
+        <SpinnerComp/>
+      </div>
     </div>
-      </div> 
+      </div>
 </template>
 <script>
+import SpinnerComp from '@/components/SpinnerComp.vue';
 export default {
+  components: {
+    SpinnerComp
+  },
   computed: {
     Products() {
       if (this.$store.state.Products) {
         const prodID = [2, 9, 11, 18, 21, 5, 1, 7, 3, 18, 21, 28, 17, 30 ];
         return this.$store.state.Products.filter(product => prodID.includes(product.prodID));
       }
-      return [];
+      return this.$store.state.Products;
     }
   },
   mounted() {

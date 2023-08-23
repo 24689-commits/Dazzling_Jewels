@@ -43,6 +43,12 @@
     text-decoration: none;
     transition: color 0.3s;
   }
+  .navbar-nav .nav-item a:hover {
+    color: rgb(223, 49, 22); 
+  }
+  .navbar-nav .nav-item .router-link-active{
+    color:#89e81c;
+  }
   
   #contact{
  align-items: center;
