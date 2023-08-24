@@ -1,7 +1,8 @@
 <template>
   <div>
+    <users-comp/>
 <!-- ==============PRODUCTS================= -->
-    <h2>Admin Component</h2>
+    <h2>PRODUCTS</h2>
     <button class="btn btn-primary" @click="showAddModal = true">Add Product</button>
     <table class="table">
       <thead>
@@ -99,23 +100,25 @@
       </div>
     </div>
 
-    <!-- <button @click="showAddModal = true">Add Product</button> -->
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import UsersComp from '../components/UsersComp.vue';
+
 export default {
+  components: {
+    UsersComp,
+  },
   data() {
     return {
-      products: [],
       showAddModal: false,
       showEditModal: false,
       newProduct: {
         prodName: '',
         amount: 0,
         category: '',
-        about:'',
+        about: '',
         gender: '',
         image: '',
       },
@@ -124,65 +127,53 @@ export default {
         prodName: '',
         amount: 0,
         category: '',
-        about:'',
+        about: '',
         gender: '',
         image: '',
       },
     };
   },
+  computed: {
+    products() {
+      return this.$store.getters.getProducts;
+    },
+  },
   methods: {
-    async fetchProducts() {
-  try {
-    const response = await axios.get(`https://dj-eomp.onrender.com/products`);
-    const data = response.data.results; 
-    console.log(data);
-    this.products = data;
-  } catch (err) {
-    alert(err);
-  }
-}
-,
+    async editProduct(product) {
+      this.editProductData = { ...product };
+      this.showEditModal = true;
+    },
     async addProduct() {
-      try {
-        await axios.post(`https://dj-eomp.onrender.com/addproduct`, this.newProduct);
-        this.showAddModal = false;
-        this.newProduct = { prodName: '', amount: 0, category: '', about:'', gender: '', image: '' };
-        await this.fetchProducts();
-      } catch (err) {
-        alert(err);
-      }
+      await this.$store.dispatch('addProduct', this.newProduct);
+      this.showAddModal = false;
+      this.newProduct = {
+        prodName: '',
+        amount: 0,
+        category: '',
+        about: '',
+        gender: '',
+        image: '',
+      };
     },
     async updateProduct() {
-      try {
-        await axios.put(`https://dj-eomp.onrender.com/product/${this.editProductData.prodID}`, this.editProductData);
-        this.showEditModal = false;
-        this.editProductData = { prodID: null, prodName: '', amount: 0, category: '', about:'', gender: '', image: '' };
-        await this.fetchProducts();
-      } catch (err) {
-        alert(err);
-      }
+      await this.$store.dispatch('updateProduct', this.editProductData);
+      this.showEditModal = false;
+      this.editProductData = {
+        prodID: null,
+        prodName: '',
+        amount: 0,
+        category: '',
+        about: '',
+        gender: '',
+        image: '',
+      };
     },
     async deleteProduct(id) {
-      try {
-        await axios.delete(`https://dj-eomp.onrender.com/product/${id}`);
-        await this.fetchProducts();
-      } catch (err) {
-        alert(err);
-      }
-    },
-    editProduct(product) {
-      this.editProductData.prodID = product.prodID;
-      this.editProductData.prodName = product.prodName;
-      this.editProductData.amount = product.amount;
-      this.editProductData.category = product.category;
-      this.editProductData.about = product.about;
-      this.editProductData.gender = product.gender;
-      this.editProductData.image = product.image;
-      this.showEditModal = true;
+      await this.$store.dispatch('deleteProduct', id);
     },
   },
   created() {
-    this.fetchProducts();
+    this.$store.dispatch('fetchProducts');
   },
 };
 </script>
