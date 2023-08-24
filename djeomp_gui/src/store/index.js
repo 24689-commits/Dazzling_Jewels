@@ -5,15 +5,19 @@ const cUrl = "https://dj-eomp.onrender.com/";
 
 export default createStore({
   state: {
-    users: null,
+    users: [],
     user: null,
-    Products: null,
+    Products: [],
     Product: null,
     spinner: false,
     token: null,
     msg: null
   },
-  getters: {},
+  getters: {
+    getUsers: state => state.users,
+    getProducts: state => state.Products
+
+  },
   mutations: {
     setUsers(state, users) {
       state.users = users;
@@ -40,46 +44,71 @@ export default createStore({
   actions: {
     async fetchUsers(context) {
       try {
-        const { data } = await axios.get(`${cUrl}users`);
-        context.commit("setUsers", data.results);
-      } catch (e) {
-        context.commit("setMsg", "An error occurred");
+        const response = await axios.get(`${cUrl}users`);
+        context.commit("setUsers", response.data.results);
+      } catch (error) {
+        console.error(error);
       }
     },
-    async fetchUser(context) {
+    async addUser(context, newUser) {
       try {
-        const { data } = await axios.get(`${cUrl}user`);
-        context.commit("setUsers", data.results);
-      } catch (e) {
-        context.commit("setMsg", "An error occurred");
+        let {msg} = (await axios.post(`${cUrl}register`, newUser)).data;
+        if(msg) {
+          context.dispatch('fetchUsers'); 
+        }
+      } catch (error) {
+        console.error(error);
       }
     },
+    async updateUser(context, editUserData) {
+      try {
+        let {msg} = (await axios.put(`${cUrl}user/${editUserData.userID}`, editUserData)).data;
+        if (msg){
+          context.dispatch('fetchUsers');
+        } 
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteUser(context, id) {
+      try {
+        await axios.delete(`${cUrl}user/${id}`);
+        await context.dispatch('fetchUsers'); 
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     async fetchProducts(context) {
       try {
-        const { data } = await axios.get(`${cUrl}Products`);
-        context.commit("setProducts", data.results);
-      } catch (e) {
-        context.commit("setMsg", "An error occurred");
+        const response = await axios.get(`${cUrl}products`);
+        context.commit("setProducts", response.data.results);
+      } catch (error) {
+        console.error(error);
       }
     },
-    // new fetch ==========================
-    async fetchProductsByCategory(context, category) {
+    async addProduct(context, newProduct) {
       try {
-        const { data } = await axios.get(`${cUrl}Products`);
-        const filteredProducts = data.results.filter(product => product.category === category);
-        context.commit("setProducts", filteredProducts);
-      } catch (e) {
-        context.commit("setMsg", "An error occurred");
+        await axios.post(`${cUrl}addproduct`, newProduct);
+        await context.dispatch('fetchProducts'); 
+      } catch (error) {
+        console.error(error);
       }
     },
-    
-    //============================================
-      async fetchProduct(context) {
+    async updateProduct(context, editProductData) {
       try {
-        const { data } = await axios.get(`${cUrl}Product/`+ id);
-        context.commit("setProducts", data.result);
-      } catch (e) {
-        context.commit("setMsg", "An error occurred");
+        await axios.put(`${cUrl}product/${editProductData.prodID}`, editProductData);
+        await context.dispatch('fetchProducts'); 
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteProduct(context, id) {
+      try {
+        await axios.delete(`${cUrl}product/${id}`);
+        await context.dispatch('fetchProducts'); 
+      } catch (error) {
+        console.error(error);
       }
     },
   },
