@@ -35,7 +35,7 @@
             <div class="col">
               <img :src="Product.image" class="card-img-top img fluid" :alt="Product.prodName" />
               <div class="card-body">
-                <h6 class="card-title">{{ Product.prodName }}</h6>
+                <h6 class="card-title-bold">{{ Product.prodName }}</h6>
                 <h6 class="card-text">Category: {{ Product.category }}</h6>
                 <h6 class="card-title"> R{{ Product.amount }}</h6>
                 <button class="view-button" @click="showPopover(Product)" >View More</button>
@@ -55,7 +55,7 @@
                           <h3 class="card-title">{{ Product.prodName }}</h3>
                           <p class="card-text">Category: {{ Product.category }}</p>
                           <p class="card-title">R{{ Product.amount }}</p>
-                          <p><u>Description : </u> sana</p>
+                          <p><u>Description : </u> </p>
                           <p class="card-text">{{ Product.about }}</p>
                         </div>
                       </div>
@@ -235,6 +235,7 @@ li:hover{
   z-index: 10001
 }
 .view-button{
+  margin-top: 10px;
   border: 1px solid black;
   border-radius: 10px;
   width:100px;
@@ -257,13 +258,19 @@ li:hover{
   padding: 20px;
   text-align: center;
 }
+.card-body h6{
+  font-size: 16px;
+ 
+}
+.card-title-bold{
+  font-weight: bolder;
+}
 .card-title {
   font-size: 24px;
 }
 .card-text {
   font-size: 18px;
 }
-
 </style>
 
 

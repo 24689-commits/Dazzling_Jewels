@@ -3,8 +3,8 @@
     <nav class="navbar">
       <div class="container-fluid">
         <h3><b style="font-size:larger">D</b>AZZLING<b style="font-size:larger">J</b>EWELS</h3>
-          <button class="btn btn-outline-success" id="shop" type="submit" >ShopNow</button>
-      </div>
+        <a class="btn btn-outline-success" id="shop" href="products">Shop Now</a>
+        </div>
     </nav>
     <hr class="horizontal-line">
     <nav class="navbar">
