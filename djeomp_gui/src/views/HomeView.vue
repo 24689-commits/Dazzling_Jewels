@@ -3,46 +3,39 @@
     <nav class="navbar">
       <div class="container-fluid">
         <h3><b style="font-size:larger">D</b>AZZLING<b style="font-size:larger">J</b>EWELS</h3>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+          <button class="btn btn-outline-success" id="shop" type="submit" >ShopNow</button>
       </div>
     </nav>
-    
-    <!-- Horizontal Line -->
     <hr class="horizontal-line">
-   
     <nav class="navbar">
-      <form class="container-fluid justify-content-start">
-        <a class="btn me-5" type="button" href="/products">ShopNow</a>
-        <a class="btn btn-sm me-5" type="button" href="/products">Watches</a>
-        <a class="btn btn-sm me-5" type="button" href="/products">Rings</a>
-        <a class="btn btn-sm me-5" type="button" href="/products">Necklaces</a>
+      <form class="container-fluid justify-content-start" >
+        <button class="btn btn-xl me-5" type="button" href="/products" style="font-size:20px!important;" >Elevating</button>
+        <button class="btn btn-sm me-5" type="button" href="/products" style="font-size:20px!important;" >Elegance</button>
+        <button class="btn btn-sm me-5" type="button" href="/products" style="font-size:20px!important;" >Enriching</button>
+        <button class="btn btn-sm me-5" type="button" href="/products" style="font-size:20px!important;" >Essence.</button>
       </form>
     </nav>
     <div class="container text-center">
       <div class="row g-0 align-items-center">
         <div class="col">
           <div class="text-overlay">
-            <div class="texts">
-              <h3>Where opulence meets essence</h3>
-              <p>Elevating Elegance, Enriching Essence.</p>
-              <a class="btn me-5" href="/products">Shop Now</a>
+           <div class="texts lobster-font">
+                <h3>Where opulence meets essence</h3>
+                <a class="btn btn-outline-success" id="shop" href="#featured">FEATURED</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- featured products -->
     <div class="container mt-4 md-4">
-      <h2 id="featured">Featured Products</h2>
+      <h2 id="featured" style="padding-top:70px;">Featured Products</h2>
       <div class="row justify-content-center " v-if="Products">
         <div v-for="product in Products" :key="product.prodID" class="col-lg-3 col-md-4 col-sm-6 mb-4">
           <div class="card d-flex flex-column h-100">
             <img :src="product.image" class="card-img-top" alt="Product Image">
             <div class="card-body">
               <p class="card-title">{{ product.prodName }}</p>
+              <a class="view" href="/products">View More</a>
             </div>
           </div>
         </div>
@@ -73,22 +66,20 @@ export default {
   }
 };
 </script>
-
 <style>
 #featured{
   padding: 3rem 0;
 }
 .text-overlay {
   background-image: url("https://i.postimg.cc/rsCx4gHY/20230728-American-Swiss-Spotlight-Diamond-Showcase-Update2-Desktop-896e055d61.jpg");
-  background-size: cover; 
+  background-size: cover;
   background-position: center;
-  height: 350px;
-  width: 100%; 
+  height: 380px;
+  width: 100%;
   position: relative;
   text-align: center;
   color: black;
 }
-
 .texts{
   position: absolute;
   color:black;
@@ -96,15 +87,14 @@ export default {
   left: 20%;
   transform: translate(-50%, -50%);
   font-size: 25px;
- 
 }
 .texts h3{
-  font-weight: bold;
-  font-size: 35px;
+  font-size: 50px;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
 }
-
-
+.lobster-font {
+  font-family: 'Lobster', cursive;
+}
 img{
 width:500px;
 height:50px;
@@ -125,5 +115,26 @@ p{
 .card{
   width:250px;
   height: 230px;
+}
+.view{
+  padding:4px;
+  color:black;
+  text-decoration: none;
+}
+.view:hover{
+  color: rgb(76, 36, 36);
+}
+#shop{
+  display: inline-block;
+  margin: 0 0.5rem;
+  animation: heartBeat;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  border:1px solid  rgb(76, 36, 36);
+  color: rgb(76, 36, 36);
+}
+#shop:hover{
+  background-color:  rgb(76, 36, 36)!important;
+  color:white;
 }
 </style>

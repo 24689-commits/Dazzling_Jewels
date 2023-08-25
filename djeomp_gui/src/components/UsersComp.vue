@@ -1,6 +1,5 @@
 <template>
   <div>
-<!-- ==============userS================= -->
     <h2>USERS</h2>
     <button class="btn btn-primary" @click="showAddModal = true">Add User</button>
     <table class="table">
@@ -12,8 +11,8 @@
           <th>gender</th>
           <th>userDOB</th>
           <th>emailAdd</th>
-          <th>userPassword</th>
           <th>profileUrl</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -22,14 +21,12 @@
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
           <td>{{ user.gender }}</td>
-          <td>{{ user.userDOB}}</td>
-          <td>{{ user.emailAdd}}</td>
-          <td>{{ user.userPassword}}</td>
-          <td>  <img :src="user.profileUrl" alt="user Image"></td>
+          <td>{{ user.userDOB }}</td>
+          <td>{{ user.emailAdd }}</td>
+          <td><img class="img-top img-fluid" style="height: 100px; width: 100px" :src="user.profileUrl" alt="user Image"></td>
           <td>
             <button class="btn btn-primary" @click="deleteUser(user.userID)">Delete</button>
             <button class="btn btn-secondary" @click="editUser(user)">Edit</button>
-            
           </td>
         </tr>
       </tbody>
@@ -37,46 +34,52 @@
 
     <div v-if="showAddModal" class="modal-over">
       <div class="modal-content">
-      <h3>Add user</h3>
-      <form @submit.prevent="addUser">
-        <div class="mb-3">
-        <label for="name">Name: </label>
-        <input type="text" id="name" v-model="newUser.firstName" required><br>
-        </div>
-        <div class="mb-3">
-        <label for="lastName">lastName: </label>
-        <input type="text" id="lastName" v-model="newUser.lastName" required><br>
-        </div>
-        <div class="mb-3">
-        <label for="gender">gender: </label>
-        <input type="text" id="gender" v-model="newUser.gender" required><br>
-        </div>
-        <div class="mb-3">
-          <label for="userDOB">userDOB: </label>
-          <input type="date" id="userDOB" v-model="newUser.userDOB" required><br>
+        <h3>Add user</h3>
+        <form @submit.prevent="addUser">
+          <div>
+            <spinner-comp v-if="isLoading" />
           </div>
-        <div class="mb-3">
-        <label for="emailAdd">emailAdd: </label>
-        <input type="text" id="emailAdd" v-model="newUser.emailAdd" required><br>
-        </div>
-        <div class="mb-3">
-        <label for="userPassword">userPassword: </label>
-        <input type="text" id="userPassword" v-model="newUser.userPassword" required><br>
-        </div>
-        <div class="mb-3">
-          <label for="profileUrl">profileUrl: </label>
-          <input type="text" id="profileUrl" v-model="newUser.profileUrl" required><br>
+          <div class="mb-3">
+            <label for="name">Name:</label>
+            <input type="text" id="name" v-model="newUser.firstName" required><br>
           </div>
-        <button class="btn btn-primary" type="submit">Add</button>
-        <button class="btn btn-secondary" @click="showAddModal = false">Cancel</button>
-      </form>
-    </div>
+          <div class="mb-3">
+            <label for="lastName">lastName:</label>
+            <input type="text" id="lastName" v-model="newUser.lastName" required><br>
+          </div>
+          <div class="mb-3">
+            <label for="gender">gender:</label>
+            <input type="text" id="gender" v-model="newUser.gender" required><br>
+          </div>
+          <div class="mb-3">
+            <label for="userDOB">userDOB:</label>
+            <input type="date" id="userDOB" v-model="newUser.userDOB" required><br>
+          </div>
+          <div class="mb-3">
+            <label for="emailAdd">emailAdd:</label>
+            <input type="text" id="emailAdd" v-model="newUser.emailAdd" required><br>
+          </div>
+          <div class="mb-3">
+            <label for="userPassword">userPassword:</label>
+            <input type="password" id="userPassword" v-model="newUser.userPassword" required><br>
+          </div>
+          <div class="mb-3">
+            <label for="profileUrl">profileUrl:</label>
+            <input type="text" id="profileUrl" v-model="newUser.profileUrl" required><br>
+          </div>
+          <button class="btn btn-primary" type="submit" :disabled="isLoading">Add</button>
+          <button class="btn btn-secondary" @click="showAddModal = false" :disabled="isLoading">Cancel</button>
+        </form>
+      </div>
     </div>
 
     <div v-if="showEditModal" class="modal-over">
       <div class="modal-content">
       <h3>Edit user</h3>
       <form @submit.prevent="updateUser">
+        <div>
+          <spinner-comp v-if="isLoadingUpdate"  />
+        </div>
         <div class="mb-3">
         <label for="editName">firstName:</label>
         <input type="text" id="editName" v-model="editUserData.firstName" required>
@@ -99,28 +102,34 @@
         </div>
         <div class="mb-3">
         <label for="edituserPassword">userPassword:</label>
-        <input type="text" id="edituserPassword" v-model="editUserData.userPassword" required>
+        <input type="password" id="edituserPassword" v-model="editUserData.userPassword" required>
         </div>
         <div class="mb-3">
           <label for="editprofileUrl">profileUrl:</label>
           <input type="text" id="editprofileUrl" v-model="editUserData.profileUrl" required>
           </div>
-        <button type="submit">Update</button>
-        <button @click="showEditModal = false">Cancel</button>
+        <button class="btn btn-primary" type="submit" :disabled="isLoading">Update</button>
+        <button class="btn btn-secondary" @click="showEditModal = false" :disabled="isLoading">Cancel</button>
       </form>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import dayjs from 'dayjs'
-export default {
 
+<script>
+import dayjs from 'dayjs';
+import SpinnerComp from './SpinnerComp.vue';
+
+export default {
+  components: { 
+    SpinnerComp 
+  },
   data() {
     return {
       showAddModal: false,
       showEditModal: false,
+      isLoading: false,
       newUser: {
         firstName: '',
         lastName: '',
@@ -148,39 +157,30 @@ export default {
     },
   },
   methods: {
-    dateFormat(dateTime){
-return dayjs(dateTime).format('YYYY-MM-DD')
-    }  ,  
+    dateFormat(dateTime) {
+      return dayjs(dateTime).format('YYYY-MM-DD');
+    },
     async editUser(user) {
+      this.isLoadingUpdate = true; 
       this.editUserData = { ...user };
+      this.isLoadingUpdate = false; 
       this.showEditModal = true;
     },
-    addUser() {
-       this.$store.dispatch('addUser', this.newUser);
+    async addUser() {
+      this.isLoading = true; 
+      await this.$store.dispatch('addUser', this.newUser);
+      this.isLoading = false; 
       this.showAddModal = false;
-      // this.newUser = {
-      //   firstName: '',
-      //   lastName: '',
-      //   gender: '',
-      //   userDOB: '',
-      //   emailAdd: '',
-      //   userPassword: '',
-      //   profileUrl: ''
-      // };
     },
     async updateUser() {
-     this.$store.dispatch('updateUser', this.editUserData);
+      this.isLoadingUpdate = true; 
+      try {
+        await this.$store.dispatch('updateUser', this.editUserData);
+      } catch (error) {
+        console.error('Update user error:', error);
+      }
+      this.isLoadingUpdate = false; 
       this.showEditModal = false;
-      // this.editUserData = {
-      //   userID: null,
-      //   firstName: '',
-      //   lastName: '',
-      //   gender: '',
-      //   userDOB: '',
-      //   emailAdd: '',
-      //   userPassword: '',
-      //   profileUrl: ''
-      // };
     },
     async deleteUser(id) {
       await this.$store.dispatch('deleteUser', id);

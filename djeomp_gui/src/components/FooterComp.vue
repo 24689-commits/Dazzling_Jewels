@@ -15,6 +15,12 @@
   </script>
   
   <style scoped>
+  .footer {
+    background-color: rgb(178, 173, 173);
+    text-align: center;
+    margin-top: 5rem;
+    padding: 1rem;
+  }
   
   
   </style>

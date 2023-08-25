@@ -55,6 +55,8 @@ export default createStore({
         let {msg} = (await axios.post(`${cUrl}register`, newUser)).data;
         if(msg) {
           context.dispatch('fetchUsers'); 
+          alert(msg);
+        
         }
       } catch (error) {
         console.error(error);
@@ -62,18 +64,27 @@ export default createStore({
     },
     async updateUser(context, editUserData) {
       try {
-        let {msg} = (await axios.put(`${cUrl}user/${editUserData.userID}`, editUserData)).data;
-        if (msg){
+        if (editUserData.userDOB) {
+          editUserData.userDOB = new Date(editUserData.userDOB).toISOString().slice(0, 19).replace('T', ' ');
+        }
+    
+        let { msg } = (await axios.put(`${cUrl}user/${editUserData.userID}`, editUserData)).data;
+        if (msg) {
           context.dispatch('fetchUsers');
-        } 
+         alert(msg);
+        }
       } catch (error) {
         console.error(error);
       }
-    },
+    }
+,    
     async deleteUser(context, id) {
       try {
-        await axios.delete(`${cUrl}user/${id}`);
-        await context.dispatch('fetchUsers'); 
+        let {msg} = (await axios.delete(`${cUrl}user/${id}`)).data;
+        if (msg) {
+          context.dispatch('fetchUsers');
+          alert(msg);
+        } 
       } catch (error) {
         console.error(error);
       }
@@ -89,24 +100,34 @@ export default createStore({
     },
     async addProduct(context, newProduct) {
       try {
-        await axios.post(`${cUrl}addproduct`, newProduct);
-        await context.dispatch('fetchProducts'); 
+        let {msg} = (await axios.post(`${cUrl}addproduct`, newProduct)).data;
+        if (msg) {
+          context.dispatch('fetchProducts'); 
+          alert(msg)
+        }
+      
       } catch (error) {
         console.error(error);
       }
     },
     async updateProduct(context, editProductData) {
       try {
-        await axios.put(`${cUrl}product/${editProductData.prodID}`, editProductData);
-        await context.dispatch('fetchProducts'); 
+        let {msg} = (await axios.put(`${cUrl}product/${editProductData.prodID}`, editProductData)).data;
+        if (msg){
+          context.dispatch('fetchProducts'); 
+          alert(msg)
+        }
       } catch (error) {
         console.error(error);
       }
     },
     async deleteProduct(context, id) {
       try {
-        await axios.delete(`${cUrl}product/${id}`);
-        await context.dispatch('fetchProducts'); 
+        let {msg} = (await axios.delete(`${cUrl}product/${id}`)).data;
+        if (msg){
+          await context.dispatch('fetchProducts'); 
+          alert(msg)
+        }
       } catch (error) {
         console.error(error);
       }
