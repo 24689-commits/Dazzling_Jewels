@@ -162,4 +162,34 @@ p {
 p span{
   color: rgb(241, 108, 223);
 }
+@media screen and (max-width: 570px) {
+  div h1 {
+    font-size: 30px;
+    padding-left: 80px;
+  }
+
+  #address {
+    margin-top: 30px;
+    margin-right: 0;
+  }
+
+  input,
+  textarea {
+    width: 100% !important; 
+  }
+}
+p{
+  padding-left: 70px;
+}
+
+@media screen and (max-width: 300px) {
+  div h1 {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 12px;
+    padding-left: 70px;
+  }
+}
 </style>

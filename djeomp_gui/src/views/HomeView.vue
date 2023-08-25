@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="container mt-4 md-4">
+    <div class="container mt-4 md-4 sm-1">
       <h2 id="featured" style="padding-top:70px;">Featured Products</h2>
       <div class="row justify-content-center " v-if="Products">
         <div v-for="product in Products" :key="product.prodID" class="col-lg-3 col-md-4 col-sm-6 mb-4">
@@ -136,5 +136,24 @@ p{
 #shop:hover{
   background-color:  rgb(76, 36, 36)!important;
   color:white;
+}
+@media screen and (max-width: 320px) {
+div h3{
+  padding-left: 50px;
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 12px;
+    
+  }
+  form.container-fluid button {
+    font-size: 2px !important;
+    padding: 0 !important;
+    margin: 0;
+  }
+ #featured{
+  padding-left: 40px;
+ }
 }
 </style>
