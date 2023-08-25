@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 const cUrl = "https://dj-eomp.onrender.com/";
 
@@ -53,10 +54,13 @@ export default createStore({
     async addUser(context, newUser) {
       try {
         let {msg} = (await axios.post(`${cUrl}register`, newUser)).data;
-        if(msg) {
-          context.dispatch('fetchUsers'); 
-          alert(msg);
-        
+        if (msg) {
+          context.dispatch('fetchUsers');
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: msg,
+          });
         }
       } catch (error) {
         console.error(error);
@@ -71,20 +75,27 @@ export default createStore({
         let { msg } = (await axios.put(`${cUrl}user/${editUserData.userID}`, editUserData)).data;
         if (msg) {
           context.dispatch('fetchUsers');
-         alert(msg);
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: msg,
+          });
         }
       } catch (error) {
         console.error(error);
       }
-    }
-,    
+    },
     async deleteUser(context, id) {
       try {
         let {msg} = (await axios.delete(`${cUrl}user/${id}`)).data;
         if (msg) {
           context.dispatch('fetchUsers');
-          alert(msg);
-        } 
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: msg,
+          });
+        }
       } catch (error) {
         console.error(error);
       }
@@ -103,9 +114,12 @@ export default createStore({
         let {msg} = (await axios.post(`${cUrl}addproduct`, newProduct)).data;
         if (msg) {
           context.dispatch('fetchProducts'); 
-          alert(msg)
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: msg,
+          });
         }
-      
       } catch (error) {
         console.error(error);
       }
@@ -115,7 +129,11 @@ export default createStore({
         let {msg} = (await axios.put(`${cUrl}product/${editProductData.prodID}`, editProductData)).data;
         if (msg){
           context.dispatch('fetchProducts'); 
-          alert(msg)
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: msg,
+          });
         }
       } catch (error) {
         console.error(error);
@@ -126,12 +144,16 @@ export default createStore({
         let {msg} = (await axios.delete(`${cUrl}product/${id}`)).data;
         if (msg){
           await context.dispatch('fetchProducts'); 
-          alert(msg)
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: msg,
+          });
         }
       } catch (error) {
         console.error(error);
       }
-    },
+    }
   },
   modules: {}
 });

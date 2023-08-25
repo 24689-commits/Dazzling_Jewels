@@ -21,7 +21,7 @@
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
           <td>{{ user.gender }}</td>
-          <td>{{ user.userDOB }}</td>
+          <td>{{ dateFormat(user.userDOB) }}</td>
           <td>{{ user.emailAdd }}</td>
           <td><img class="img-top img-fluid" style="height: 100px; width: 100px" :src="user.profileUrl" alt="user Image"></td>
           <td>
@@ -134,7 +134,7 @@ export default {
         firstName: '',
         lastName: '',
         gender: '',
-        userDOB: '',
+        userDOB: null,
         emailAdd: '',
         userPassword: '',
         profileUrl: ''
@@ -144,7 +144,7 @@ export default {
         firstName: '',
         lastName: '',
         gender: '',
-        userDOB: '',
+        userDOB: null,
         emailAdd: '',
         userPassword: '',
         profileUrl: ''

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <users-comp/>
 <!-- ==============PRODUCTS================= -->
     <h2>PRODUCTS</h2>

@@ -262,7 +262,9 @@ li:hover{
 }
 .card-text {
   font-size: 18px;
-}</style>
+}
+
+</style>
 
 
 
