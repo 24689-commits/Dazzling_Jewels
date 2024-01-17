@@ -36,7 +36,6 @@
               <img :src="Product.image" class="card-img-top img fluid" :alt="Product.prodName" />
               <div class="card-body">
                 <h6 class="card-title-bold">{{ Product.prodName }}</h6>
-                <h6 class="card-text">Category: {{ Product.category }}</h6>
                 <h6 class="card-title"> R{{ Product.amount }}</h6>
                 <button class="view-button" @click="showPopover(Product)" >View More</button>
               </div>
