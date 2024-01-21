@@ -158,9 +158,10 @@ export default {
   background-color: #F0F0F0;
   padding: 20px;
   position: fixed;
-  top: 5rem;
+  top: 3rem;
   left: 3rem;
   bottom: 0;
+  height: 70%;
 }
 .search-container {
   margin-bottom: 40px;
