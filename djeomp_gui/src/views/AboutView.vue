@@ -24,7 +24,7 @@ export default {
 </script>
 <style scoped>
 .about-page {
-  background-image: url("https://i.postimg.cc/J0TkQKTQ/c-HJpdm-F0-ZS9sci9pb-WFn-ZXMvd2-Vic2l0-ZS8y-MDIy-LTA2-L3-Yx-MDE2-LWEt-MDJk-LXguan-Bn.jpg");
+  background-image: url("https://i.imgur.com/ExJB6al.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -37,6 +37,7 @@ export default {
   height: 100vh;
 }
 .card {
+  margin-top: -100px;
   background-color: transparent;
   color:black;
   padding: 20px;

@@ -8,12 +8,7 @@
     </nav>
     <hr class="horizontal-line">
     <nav class="navbar">
-      <form class="container-fluid justify-content-start" >
-        <button class="btn btn-xl me-5" type="button" href="/products" style="font-size:20px!important;" >Elevating</button>
-        <button class="btn btn-sm me-5" type="button" href="/products" style="font-size:20px!important;" >Elegance</button>
-        <button class="btn btn-sm me-5" type="button" href="/products" style="font-size:20px!important;" >Enriching</button>
-        <button class="btn btn-sm me-5" type="button" href="/products" style="font-size:20px!important;" >Essence.</button>
-      </form>
+    
     </nav>
     <div class="container text-center">
       <div class="row g-0 align-items-center">
@@ -67,18 +62,30 @@ export default {
 };
 </script>
 <style>
+.texts h3{
+  text-align: 50%;
+  color: rgb(226, 43, 104);
+}
+.home{
+  background-image: url('https://i.imgur.com/ExJB6al.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
 #featured{
   padding: 3rem 0;
 }
 .text-overlay {
-  background-image: url("https://i.pinimg.com/564x/5c/d1/1b/5cd11b5495d1b2a26e70f075f8ef3944.jpg");
+  background-image: url("https://i.pinimg.com/564x/c4/f7/92/c4f7925d5fac28cb8be5b10c8e2f82ff.jpg");
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 500px;
+  height: 530px;
   width: 100%;
   position: relative;
   text-align: center;
-  color: black;
+  color: rgb(45, 60, 106);
+  border: none;
 }
 .texts{
   position: absolute;

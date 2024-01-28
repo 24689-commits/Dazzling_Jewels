@@ -1,4 +1,5 @@
 <template>
+  <div class="background">
   <div class="container">
     <div class="row">
       <div class="col-md-3">
@@ -70,6 +71,7 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 <script>
 import SpinnerCompVue from '../components/SpinnerComp.vue';
@@ -151,6 +153,12 @@ export default {
 };
 </script>
 <style scoped>
+.background{
+  background-image: url("https://i.imgur.com/ExJB6al.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .container{
   display: flex;
 }
